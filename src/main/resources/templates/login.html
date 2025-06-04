@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Logowanie</title>
+
+    <!-- General CSS Files -->
+    <link th:href="@{assets/modules/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/assets/modules/fontawesome/css/all.min.css}" rel="stylesheet" />
+
+    <!-- CSS Libraries -->
+    <link th:href="@{/assets/modules/bootstrap-social/bootstrap-social.css}" rel="stylesheet" />
+
+    <!-- Template CSS -->
+    <link th:href="@{/assets/css/style.min.css}" rel="stylesheet" />
+    <link th:href="@{/assets/css/components.min.css}" rel="stylesheet" />
+
+
+</head>
+
+<body class="layout-4">
+
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>Logowanie</h4>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/login}" method="post" class="needs-validation" novalidate="">
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input id="email" type="email" name="username" class="form-control"  tabindex="1" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <div class="d-block">
+                                        <label for="password" class="control-label">Hasło</label>
+
+                                    </div>
+                                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                                </div>
+                                <div class="form-group">
+
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                        Zaloguj
+                                    </button>
+                                    <div th:if="${param.error}" class="text-danger text-center p-4">
+                                        Błędny login lub hasło</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- General JS Scripts -->
+<script type="text/javascript" th:src="@{/assets/bundles/lib.vendor.bundle.js}"></script>
+<script type="text/javascript" th:src="@{/js/CodiePie.js}"></script>
+
+<!-- Template JS File -->
+<script type="text/javascript" th:src="@{js/scripts.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+</body>
+
+</html>

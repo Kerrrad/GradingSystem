@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Oceny</title>
+
+    <!-- General CSS Files -->
+    <link th:href="@{/assets/modules/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/assets/modules/fontawesome/css/all.min.css}" rel="stylesheet" />
+
+    <!-- CSS Libraries -->
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+
+
+    <!-- Template CSS -->
+    <link th:href="@{/assets/css/style.min.css}" rel="stylesheet" />
+    <link th:href="@{/assets/css/components.min.css}" rel="stylesheet" />
+
+
+</head>
+<body class="layout-4">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <!-- Start app top navbar -->
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <form class="form-inline mr-auto">
+                <ul class="navbar-nav mr-3">
+                    <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                </ul>
+            </form>
+            <ul class="navbar-nav navbar-right">
+                <li>
+                    <form action="/logout" method="post">
+                        <button  type="submit" class="btn has-icon text-danger">
+                            <i class="fas fa-sign-out-alt"></i>Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Start main left sidebar menu -->
+        <div class="main-sidebar sidebar-style-3">
+            <aside id="sidebar-wrapper">
+                <div class="sidebar-brand">
+                    <a href="/">System Oceniania</a>
+                </div>
+                <div class="sidebar-brand sidebar-brand-sm">
+                    <a href="/">SO</a>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="menu-header">Ogólne</li>
+                    <li>
+                        <a href="/teacher/add-grade" class="nav-link "><i class="fas fa-graduation-cap"></i><span>Dodaj ocene</span></a>
+                    </li>
+                    <li >
+                        <a href="/teacher/list" class="nav-link " ><i class="fas fa-users"></i><span>Klasy</span></a>
+                    </li>
+                </ul>
+
+            </aside>
+        </div>
+
+        <!-- Start app main Content -->
+
+
+            <div class="main-content" style="min-height: 858px;">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>Dodaj ocene</h1>
+                    </div>
+                    <div th:if="${successMessage}" class="alert alert-success">
+                        <p th:text="${successMessage}"></p>
+                    </div>
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                    <form id="gradeForm" action="/teacher/add-grade" method="post">
+                                        <input id="teacher" type="hidden" th:value="${teacherId}" name="teacher">
+                                        <div class="form-group">
+                                        <label for="className">Wybierz klasę:</label>
+                                        <select required id="className" name="className" onchange="loadStudents()" class="form-control">
+                                            <option selected value="">Wybierz klasę</option>
+                                            <option th:each="studentClass : ${availablesStudentClass}" th:value="${studentClass.name}" th:text="${studentClass.name}"></option>
+                                        </select>
+                                        </div>
+                                        <div class="form-group">
+                                      <label for="subject">Wybierz przedmiot</label>
+                                        <select required id="subject" name="subject" class="form-control">
+                                            <option selected value="">Wybierz przedmiot</option>
+                                            <option th:each="subject : ${availableSubjects}" th:value="${subject.id}" th:text="${subject.subjectName}"></option>
+                                          </select>
+                                        </div>
+                                            <div class="form-group">
+                                        <select required id="student" name="student" class="form-control">
+                                            <option value="" selected>Wybierz ucznia</option>
+                                            <option th:each="subject : ${availableSubjects}" th:value="${subject.id}" th:text="${subject.subjectName}"></option>
+                                        </select>
+                                            </div>
+                                        <div class="form-group">
+                                        <label for="grade">Wpisz ocenę</label>
+                                        <select required id="grade" name="grade" class="form-control">
+                                            <option value="" selected>Wybierz ocenę</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                        </div>
+                                        <button onclick="validateForm()" type="button" class="btn btn-primary">Dodaj ocenę</button>
+                                        <div id="formValid" class="text-danger py-4 d-none">Uzupełnij wszystkie pola</div>
+                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+    </div>
+</div>
+
+<!-- General JS Scripts -->
+<script type="text/javascript" th:src="@{/assets/bundles/lib.vendor.bundle.js}"></script>
+<script type="text/javascript" th:src="@{/js/CodiePie.js}"></script>
+
+
+<!-- JS Libraies -->
+
+<!-- Page Specific JS File -->
+<script type="text/javascript" th:src="@{/js/page/index.js}"></script>
+
+<!-- Template JS File -->
+<script type="text/javascript" th:src="@{/js/scripts.js}"></script>
+<script type="text/javascript" th:src="@{/js/custom.js}"></script>
+
+<script th:inline="javascript">
+    function loadStudents() {
+        var selectedClass = $("#className").val();
+        var teacher = $("#teacher").val();
+        $.ajax({
+            type: "GET",
+            url: "/teacher/listStudents",
+            data: {className: selectedClass},
+            dataType: "json",
+            success: function (data) {
+                console.log("Received data:", data);
+                updateStudent(data);
+            },
+            error: function () {
+                alert("Błąd podczas wczytywania uczniów");
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "/teacher/listSubject",
+            data: {className: selectedClass,teacherId: teacher},
+            dataType: "json",
+            success: function (data) {
+                updateSubject(data);
+            },
+            error: function () {
+                alert("Błąd podczas wczytywania przedmiotów");
+            }
+        });
+    }
+
+    function updateStudent(students) {
+        $("#student").empty();
+        for (var i = 0; i < students.length; i++) {
+            var student = students[i];
+            var option = "<option value='"+student.id+"'>" +
+               student.firstName+" "+student.lastName +
+                "</option>";
+            $("#student").append(option);
+        }
+    }
+    function updateSubject(subjects) {
+        $("#subject").empty();
+        for (var i = 0; i < subjects.length; i++) {
+            var subject = subjects[i];
+            var option = "<option value='" + subject.id + "'>" +
+                subject.subjectName +
+                "</option>";
+            $("#subject").append(option);
+        }
+    }
+
+    function validateForm(){
+        var form = $("#gradeForm");
+        var selects = $("#gradeForm select");
+        var valid = true;
+
+        selects.each(function() {
+            if ($(this).val() === "") {
+                valid = false;
+                return false;
+            }
+        });
+
+        if (!valid) {
+            $('#formValid').removeClass("d-none");
+        }else {
+            form.submit();
+        }
+        }
+
+</script>
+
+</body>
+
+</html>
