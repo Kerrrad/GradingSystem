@@ -71,7 +71,6 @@ public class TeacherController {
 
     @PostMapping("/teacher/add-grade")
     public String addGrade(@ModelAttribute Grade grade, RedirectAttributes redirectAttributes) {
-
         Grade newGrade = new Grade();
         newGrade.setTeacher(grade.getTeacher());
         newGrade.setDate(new Date());
@@ -81,7 +80,6 @@ public class TeacherController {
 
         gradeService.createGrade(newGrade);
 
-        // Dodaj komunikat do przekierowania
         redirectAttributes.addFlashAttribute("successMessage", "Ocena została dodana pomyślnie!");
         return "redirect:/teacher/add-grade";
     }

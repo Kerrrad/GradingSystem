@@ -68,59 +68,59 @@
 
             </aside>
         </div>
-            <!-- Start main Content -->
-            <div class="main-content" style="min-height: 858px;">
-                <section class="section">
-                    <div class="section-header">
-                        <h1>Oceny</h1>
-                    </div>
+        <!-- Start main Content -->
+        <div class="main-content" style="min-height: 858px;">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Oceny</h1>
+                </div>
 
-                    <div class="section-body">
+                <div class="section-body">
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
 
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped v_center">
-                                                <tbody><tr>
-                                                    <th>Przedmiot</th>
-                                                    <th>Oceny</th>
-                                                    <th>Średnia</th>
-                                                </tr>
-                                                <tr th:each="subject : ${subjects}">
-                                                    <td th:text="${subject.subjectName}">
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <span th:each="grade : ${grades}" 
-                                                                  th:if="${grade.subject.id == subject.id}" 
-                                                                  th:text="${grade.grade}" 
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped v_center">
+                                            <tbody><tr>
+                                                <th>Przedmiot</th>
+                                                <th>Oceny</th>
+                                                <th>Średnia</th>
+                                            </tr>
+                                            <tr th:each="subject : ${subjects}">
+                                                <td th:text="${subject.subjectName}">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                            <span th:each="grade : ${grades}"
+                                                                  th:if="${grade.subject.id == subject.id}"
+                                                                  th:text="${#numbers.formatDecimal(grade.grade, 1, 'POINT', 1, 'POINT')}"
                                                                   class="mx-3">
                                                             </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span th:each="average : ${averages}" 
-                                                              th:if="${subject.subjectName == average.getKey()}" 
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                        <span th:each="average : ${averages}"
+                                                              th:if="${subject.subjectName == average.getKey()}"
                                                               th:text="${average.getValue()}">
                                                         </span>
-                                                    </td>
-                                                </tr>
+                                                </td>
+                                            </tr>
 
-                                                </tbody></table>
-                                        </div>
+                                            </tbody></table>
                                     </div>
-
                                 </div>
+
                             </div>
                         </div>
-
-
                     </div>
-                </section>
-            </div>
+
+
+                </div>
+            </section>
+        </div>
 
 
     </div>

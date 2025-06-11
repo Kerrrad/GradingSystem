@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
@@ -81,6 +80,9 @@
                     <div th:if="${successMessage}" class="alert alert-success">
                         <p th:text="${successMessage}"></p>
                     </div>
+                    <div th:if="${errorMessage}" class="alert alert-danger">
+                        <p th:text="${errorMessage}"></p>
+                    </div>
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12">
@@ -103,6 +105,7 @@
                                           </select>
                                         </div>
                                             <div class="form-group">
+                                                <label for="subject">Wybierz ucznia</label>
                                         <select required id="student" name="student" class="form-control">
                                             <option value="" selected>Wybierz ucznia</option>
                                             <option th:each="subject : ${availableSubjects}" th:value="${subject.id}" th:text="${subject.subjectName}"></option>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
@@ -71,43 +70,44 @@
         </div>
 
         <!-- Start app main Content -->
-            <div class="main-content" style="min-height: 858px;">
-                <section class="section">
-                    <div class="section-header">
-                        <h1>Klasy</h1>
-                    </div>
-                    <div class="section-body">
-                     <div class="row">
+        <div class="main-content" style="min-height: 858px;">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Klasy</h1>
+                </div>
+                <div class="section-body">
+                    <div class="row">
 
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <form id="classForm">
-                                            <div class="form-group">
-                                                <label for="className">Wybierz klasę:</label>
-                                                <select id="className" name="className" onchange="loadStudents()" class="form-control form-control-lg">
-                                                    <option selected >Wybierz klase</option>
-                                                    <option th:each="studentClass : ${availableClasses}" th:value="${studentClass.name}" th:text="${studentClass.name}"></option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped v_center">
-                                                <tbody id="studentTableBody">
-                                                <tr>
-                                                    <th>Imię</th>
-                                                    <th>Nazwisko</th>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="classForm">
+                                        <div class="form-group">
+                                            <label for="className">Wybierz klasę:</label>
+                                            <select id="className" name="className" onchange="loadStudents()" class="form-control form-control-lg">
+                                                <option selected >Wybierz klase</option>
+                                                <option th:each="studentClass : ${availableClasses}" th:value="${studentClass.name}" th:text="${studentClass.name}"></option>
+                                            </select>
                                         </div>
+                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped v_center">
+                                            <tbody id="studentTableBody">
+                                            <tr>
+                                                <th>Lp.</th>
+                                                <th>Imię</th>
+                                                <th>Nazwisko</th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                     </div>
+                        </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
+        </div>
 
 
     </div>
@@ -146,12 +146,14 @@
     function updateTable(students) {
         $("#studentTableBody").empty();
         $("#studentTableBody").append(" <tr>" +
+            "<th>Lp.</th>"+
             "<th>Imię</th>"+
             "<th>Nazwisko</th>" +
             "</tr>");
         for (var i = 0; i < students.length; i++) {
             var student = students[i];
             var row = "<tr>" +
+                "<td>" + (i + 1) + "</td>" +
                 "<td>" + student.firstName + "</td>" +
                 "<td>" + student.lastName + "</td>" +
                 "</tr>";
